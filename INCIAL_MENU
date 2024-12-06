@@ -1,0 +1,13 @@
+INICIALIZAÇÃO DO CODE
+def inicializar_banco():
+    conexao = sqlite3.connect("banco_dados.db")
+    cursor = conexao.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS contatos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            telefone TEXT NOT NULL
+        )
+    ''')
+    conexao.commit()
+    conexao.close()
