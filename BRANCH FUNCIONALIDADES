@@ -1,0 +1,41 @@
+git checkout -b banco-dados
+"Implementação de banco de dados simples com Jdoodle"
+
+ADICIONAR CONTATO
+def adicionar_contato(nome, telefone):
+    conexao = sqlite3.connect("banco_dados.db")
+    cursor = conexao.cursor()
+    cursor.execute("INSERT INTO contatos (nome, telefone) VALUES (?, ?)", (nome, telefone))
+    conexao.commit()
+    conexao.close()
+    print(f"Contato '{nome}' adicionado com sucesso!")
+
+ATUALIZAR CONTATO
+def atualizar_contato(id, novo_nome, novo_telefone):
+    conexao = sqlite3.connect("banco_dados.db")
+    cursor = conexao.cursor()
+    cursor.execute("UPDATE contatos SET nome = ?, telefone = ? WHERE id = ?", (novo_nome, novo_telefone, id))
+    conexao.commit()
+    conexao.close()
+    print(f"Contato ID {id} atualizado com sucesso!")
+
+LISTAR CONTATO
+def listar_contatos():
+    conexao = sqlite3.connect("banco_dados.db")
+    cursor = conexao.cursor()
+    cursor.execute("SELECT * FROM contatos")
+    registros = cursor.fetchall()
+    conexao.close()
+    print("\nLista de Contatos:")
+    for registro in registros:
+        print(f"ID: {registro[0]}, Nome: {registro[1]}, Telefone: {registro[2]}")
+    print()
+
+EXCLUIR CONTATO
+def excluir_contato(id):
+    conexao = sqlite3.connect("banco_dados.db")
+    cursor = conexao.cursor()
+    cursor.execute("DELETE FROM contatos WHERE id = ?", (id,))
+    conexao.commit()
+    conexao.close()
+    print(f"Contato ID {id} excluído com sucesso!")
